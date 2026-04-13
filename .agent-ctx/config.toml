@@ -1,0 +1,13 @@
+config_version = 1
+
+[defaults]
+author = "x"
+format = "markdown"
+auto_snap = false
+
+[ignore]
+paths = [
+    "target/",
+    "node_modules/",
+    ".git/",
+]

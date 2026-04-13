@@ -1,0 +1,25 @@
+# Build
+/target/
+debug/
+release/
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Landing page
+site/node_modules/
+site/dist/
+site/.astro/
