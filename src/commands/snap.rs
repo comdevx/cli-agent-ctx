@@ -34,19 +34,14 @@ pub fn run(
     }
 
     out.debug("reading project config");
-    let config = ProjectConfig::load(&ctx_dir.join("config.toml"))
-        .unwrap_or_default();
+    let config = ProjectConfig::load(&ctx_dir.join("config.toml")).unwrap_or_default();
 
-    let author_name = author
-        .map(String::from)
-        .unwrap_or(config.defaults.author);
+    let author_name = author.map(String::from).unwrap_or(config.defaults.author);
 
     out.debug("reading git state");
-    let git_state = git::read_git_state(project_dir)
-        .context("failed to read git state")?;
+    let git_state = git::read_git_state(project_dir).context("failed to read git state")?;
 
-    let decisions = DecisionLog::load(&ctx_dir.join(DECISIONS_FILE))
-        .unwrap_or_default();
+    let decisions = DecisionLog::load(&ctx_dir.join(DECISIONS_FILE)).unwrap_or_default();
 
     let snap_id = Snapshot::generate_id(&author_name);
 
@@ -87,8 +82,7 @@ pub fn run(
     let toml_content = snapshot.to_toml()?;
     let snap_path = ctx_dir.join(SNAPS_DIR).join(format!("{snap_id}.toml"));
 
-    std::fs::write(&snap_path, &toml_content)
-        .context("failed to write snapshot file")?;
+    std::fs::write(&snap_path, &toml_content).context("failed to write snapshot file")?;
 
     if out.json {
         let json = serde_json::to_string_pretty(&snapshot)
@@ -102,10 +96,7 @@ pub fn run(
             "  modified files: {}",
             snapshot.progress.modified_files.len()
         ));
-        out.info(&format!(
-            "  decisions: {}",
-            snapshot.decisions.len()
-        ));
+        out.info(&format!("  decisions: {}", snapshot.decisions.len()));
     }
 
     Ok(())

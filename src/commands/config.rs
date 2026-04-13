@@ -14,11 +14,7 @@ use crate::output::OutputMode;
 ///
 /// # Errors
 /// Returns error if not initialized or config operation fails.
-pub fn run(
-    project_dir: &Path,
-    action: &ConfigAction,
-    out: &OutputMode,
-) -> Result<()> {
+pub fn run(project_dir: &Path, action: &ConfigAction, out: &OutputMode) -> Result<()> {
     let ctx_dir = project_dir.join(CTX_DIR_NAME);
     if !ctx_dir.exists() {
         return Err(CliError::NotInitialized.into());
@@ -41,16 +37,12 @@ pub fn run(
             config
                 .set(key, value)
                 .context("failed to set config value")?;
-            config
-                .save(&config_path)
-                .context("failed to save config")?;
+            config.save(&config_path).context("failed to save config")?;
             out.success(&format!("set {key} = {value}"));
         }
         ConfigAction::Reset => {
             let config = ProjectConfig::default();
-            config
-                .save(&config_path)
-                .context("failed to save config")?;
+            config.save(&config_path).context("failed to save config")?;
             out.success("config reset to defaults");
         }
     }

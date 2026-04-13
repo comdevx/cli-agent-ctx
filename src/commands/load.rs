@@ -33,8 +33,7 @@ pub fn run(
         formatter::to_agent_format(&snap, agent_name)
     } else {
         match format {
-            "json" => serde_json::to_string_pretty(&snap)
-                .context("failed to serialize to JSON")?,
+            "json" => serde_json::to_string_pretty(&snap).context("failed to serialize to JSON")?,
             "plain" => formatter::to_plain(&snap),
             _ => formatter::to_markdown(&snap),
         }
@@ -57,11 +56,7 @@ fn find_snapshot(
     let mut entries: Vec<_> = std::fs::read_dir(snaps_dir)
         .context("failed to read snapshots directory")?
         .filter_map(|e| e.ok())
-        .filter(|e| {
-            e.path()
-                .extension()
-                .is_some_and(|ext| ext == "toml")
-        })
+        .filter(|e| e.path().extension().is_some_and(|ext| ext == "toml"))
         .collect();
 
     if entries.is_empty() {
@@ -69,7 +64,7 @@ fn find_snapshot(
     }
 
     // Sort by filename descending (newest first)
-    entries.sort_by(|a, b| b.file_name().cmp(&a.file_name()));
+    entries.sort_by_key(|b| std::cmp::Reverse(b.file_name()));
 
     if let Some(id) = snap_id {
         // Find by exact or partial ID match
@@ -77,15 +72,12 @@ fn find_snapshot(
             let name = entry.file_name();
             let name_str = name.to_string_lossy();
             if name_str.starts_with(id) || name_str.contains(id) {
-                let content = std::fs::read_to_string(entry.path())
-                    .context("failed to read snapshot")?;
+                let content =
+                    std::fs::read_to_string(entry.path()).context("failed to read snapshot")?;
                 return Snapshot::from_toml(&content);
             }
         }
-        return Err(CliError::SnapshotNotFound {
-            id: id.to_string(),
-        }
-        .into());
+        return Err(CliError::SnapshotNotFound { id: id.to_string() }.into());
     }
 
     if let Some(author_name) = author {
@@ -94,8 +86,8 @@ fn find_snapshot(
             let name = entry.file_name();
             let name_str = name.to_string_lossy();
             if name_str.contains(author_name) {
-                let content = std::fs::read_to_string(entry.path())
-                    .context("failed to read snapshot")?;
+                let content =
+                    std::fs::read_to_string(entry.path()).context("failed to read snapshot")?;
                 return Snapshot::from_toml(&content);
             }
         }
@@ -107,7 +99,7 @@ fn find_snapshot(
 
     // Default: latest snapshot
     let latest = &entries[0];
-    let content = std::fs::read_to_string(latest.path())
-        .context("failed to read latest snapshot")?;
+    let content =
+        std::fs::read_to_string(latest.path()).context("failed to read latest snapshot")?;
     Snapshot::from_toml(&content)
 }

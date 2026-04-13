@@ -6,6 +6,7 @@ use colored::Colorize;
 
 /// Output settings derived from CLI flags.
 pub struct OutputMode {
+    #[allow(dead_code)] // tracked for future use in conditional formatting
     pub color: bool,
     pub quiet: bool,
     pub json: bool,

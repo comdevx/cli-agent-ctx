@@ -14,19 +14,13 @@ use crate::output::OutputMode;
 ///
 /// # Errors
 /// Returns error if not initialized.
-pub fn run(
-    project_dir: &Path,
-    tag: Option<&str>,
-    limit: usize,
-    out: &OutputMode,
-) -> Result<()> {
+pub fn run(project_dir: &Path, tag: Option<&str>, limit: usize, out: &OutputMode) -> Result<()> {
     let ctx_dir = project_dir.join(CTX_DIR_NAME);
     if !ctx_dir.exists() {
         return Err(CliError::NotInitialized.into());
     }
 
-    let log = DecisionLog::load(&ctx_dir.join(DECISIONS_FILE))
-        .unwrap_or_default();
+    let log = DecisionLog::load(&ctx_dir.join(DECISIONS_FILE)).unwrap_or_default();
 
     let decisions = if let Some(tag_filter) = tag {
         let filtered = log.filter_by_tag(tag_filter);
@@ -42,14 +36,11 @@ pub fn run(
     }
 
     if out.json {
-        let json = serde_json::to_string_pretty(&decisions)
-            .context("failed to serialize decisions")?;
+        let json =
+            serde_json::to_string_pretty(&decisions).context("failed to serialize decisions")?;
         out.data(&json);
     } else {
-        out.data(&format!(
-            "{}\n\n",
-            "Decision Log".bold().underline()
-        ));
+        out.data(&format!("{}\n\n", "Decision Log".bold().underline()));
         for (i, d) in decisions.iter().enumerate() {
             out.data(&format!(
                 "{}. {} {} — {} ({})\n",

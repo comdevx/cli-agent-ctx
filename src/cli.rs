@@ -6,7 +6,9 @@ use clap::{Parser, Subcommand};
 #[derive(Parser)]
 #[command(name = "agent-ctx")]
 #[command(version, about = "Agent Ctx — AI Agent Context Manager")]
-#[command(long_about = "Persist and share development context across AI agent sessions.\nNo more re-explaining your project every time you start a new session.")]
+#[command(
+    long_about = "Persist and share development context across AI agent sessions.\nNo more re-explaining your project every time you start a new session."
+)]
 #[command(propagate_version = true)]
 pub struct Cli {
     #[command(subcommand)]

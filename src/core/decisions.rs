@@ -23,8 +23,7 @@ impl DecisionLog {
         if !path.exists() {
             return Ok(Self::default());
         }
-        let content = std::fs::read_to_string(path)
-            .context("failed to read decisions file")?;
+        let content = std::fs::read_to_string(path).context("failed to read decisions file")?;
         toml::from_str(&content).context("failed to parse decisions file")
     }
 
@@ -33,8 +32,7 @@ impl DecisionLog {
     /// # Errors
     /// Returns error if serialization or file writing fails.
     pub fn save(&self, path: &Path) -> Result<()> {
-        let content =
-            toml::to_string_pretty(self).context("failed to serialize decisions")?;
+        let content = toml::to_string_pretty(self).context("failed to serialize decisions")?;
         std::fs::write(path, content).context("failed to write decisions file")
     }
 

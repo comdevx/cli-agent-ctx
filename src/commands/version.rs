@@ -19,6 +19,10 @@ pub fn run(out: &OutputMode) {
         }
     } else {
         out.data(&format!("agent-ctx {version}\n"));
-        out.data(&format!("target: {}-{}\n", std::env::consts::ARCH, std::env::consts::OS));
+        out.data(&format!(
+            "target: {}-{}\n",
+            std::env::consts::ARCH,
+            std::env::consts::OS
+        ));
     }
 }

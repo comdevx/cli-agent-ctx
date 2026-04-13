@@ -5,6 +5,7 @@
 use std::path::PathBuf;
 
 #[derive(Debug, thiserror::Error)]
+#[allow(dead_code)] // variants used as the tool grows
 pub enum CliError {
     #[error("not initialized — run `agent-ctx init` first")]
     NotInitialized,

@@ -17,12 +17,5 @@ pub fn run(
     out: &OutputMode,
 ) -> Result<()> {
     // Reuse load with agent format
-    crate::commands::load::run(
-        project_dir,
-        snap_id,
-        None,
-        "markdown",
-        Some(to_agent),
-        out,
-    )
+    crate::commands::load::run(project_dir, snap_id, None, "markdown", Some(to_agent), out)
 }

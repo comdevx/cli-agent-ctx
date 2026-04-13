@@ -4,7 +4,7 @@
 use anyhow::Result;
 use std::path::PathBuf;
 
-use crate::cli::{Command, Cli};
+use crate::cli::{Cli, Command};
 use crate::output::OutputMode;
 
 /// Run the application with parsed CLI arguments.
@@ -16,9 +16,7 @@ pub async fn run(cli: Cli) -> Result<()> {
     let project_dir = PathBuf::from(".");
 
     match cli.command {
-        Command::Init => {
-            crate::commands::init::run(&project_dir, &out)
-        }
+        Command::Init => crate::commands::init::run(&project_dir, &out),
         Command::Snap {
             author,
             message,
@@ -47,20 +45,9 @@ pub async fn run(cli: Cli) -> Result<()> {
             snap1,
             snap2,
             format,
-        } => crate::commands::diff::run(
-            &project_dir,
-            &snap1,
-            &snap2,
-            &format,
-            &out,
-        ),
+        } => crate::commands::diff::run(&project_dir, &snap1, &snap2, &format, &out),
         Command::Sync { to, snap } => {
-            crate::commands::sync::run(
-                &project_dir,
-                &to,
-                snap.as_deref(),
-                &out,
-            )
+            crate::commands::sync::run(&project_dir, &to, snap.as_deref(), &out)
         }
         Command::Decide {
             message,
@@ -74,19 +61,10 @@ pub async fn run(cli: Cli) -> Result<()> {
             &out,
         ),
         Command::Log { tag, limit } => {
-            crate::commands::log::run(
-                &project_dir,
-                tag.as_deref(),
-                limit,
-                &out,
-            )
+            crate::commands::log::run(&project_dir, tag.as_deref(), limit, &out)
         }
-        Command::Config { action } => {
-            crate::commands::config::run(&project_dir, &action, &out)
-        }
-        Command::SelfUpdate => {
-            crate::commands::self_update::run(&out).await
-        }
+        Command::Config { action } => crate::commands::config::run(&project_dir, &action, &out),
+        Command::SelfUpdate => crate::commands::self_update::run(&out).await,
         Command::Completions { shell } => {
             crate::commands::completions::run(shell);
             Ok(())

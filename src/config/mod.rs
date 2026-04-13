@@ -56,8 +56,7 @@ impl ProjectConfig {
     /// # Errors
     /// Returns error if the file cannot be read or parsed.
     pub fn load(path: &Path) -> Result<Self> {
-        let content =
-            std::fs::read_to_string(path).context("failed to read config file")?;
+        let content = std::fs::read_to_string(path).context("failed to read config file")?;
         toml::from_str(&content).context("failed to parse config file")
     }
 
@@ -66,8 +65,7 @@ impl ProjectConfig {
     /// # Errors
     /// Returns error if serialization or file writing fails.
     pub fn save(&self, path: &Path) -> Result<()> {
-        let content =
-            toml::to_string_pretty(self).context("failed to serialize config")?;
+        let content = toml::to_string_pretty(self).context("failed to serialize config")?;
         std::fs::write(path, content).context("failed to write config file")
     }
 
@@ -90,16 +88,13 @@ impl ProjectConfig {
             "author" => self.defaults.author = value.to_string(),
             "format" => {
                 if !["markdown", "json", "plain"].contains(&value) {
-                    anyhow::bail!(
-                        "invalid format: {value} — must be markdown, json, or plain"
-                    );
+                    anyhow::bail!("invalid format: {value} — must be markdown, json, or plain");
                 }
                 self.defaults.format = value.to_string();
             }
             "auto_snap" => {
-                self.defaults.auto_snap = value.parse().context(
-                    "auto_snap must be true or false",
-                )?;
+                self.defaults.auto_snap =
+                    value.parse().context("auto_snap must be true or false")?;
             }
             _ => anyhow::bail!("unknown config key: {key}"),
         }
@@ -108,6 +103,7 @@ impl ProjectConfig {
 }
 
 /// Find the `.agent-ctx/` directory by walking up from the given path.
+#[allow(dead_code)] // will be used for nested directory support
 pub fn find_ctx_dir(start: &Path) -> Option<PathBuf> {
     let mut current = start.to_path_buf();
     loop {

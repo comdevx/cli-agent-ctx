@@ -34,16 +34,14 @@ pub fn read_git_state(path: &Path) -> Result<GitState> {
     let branch = run_git(path, &["rev-parse", "--abbrev-ref", "HEAD"])
         .context("failed to get current branch")?;
 
-    let commit_hash = run_git(path, &["rev-parse", "--short", "HEAD"])
-        .context("failed to get commit hash")?;
+    let commit_hash =
+        run_git(path, &["rev-parse", "--short", "HEAD"]).context("failed to get commit hash")?;
 
-    let commit_message = run_git(path, &["log", "-1", "--pretty=%s"])
-        .context("failed to get commit message")?;
+    let commit_message =
+        run_git(path, &["log", "-1", "--pretty=%s"]).context("failed to get commit message")?;
 
-    let modified_raw = run_git(path, &["diff", "--name-only", "HEAD"])
-        .unwrap_or_default();
-    let staged_raw = run_git(path, &["diff", "--name-only", "--cached"])
-        .unwrap_or_default();
+    let modified_raw = run_git(path, &["diff", "--name-only", "HEAD"]).unwrap_or_default();
+    let staged_raw = run_git(path, &["diff", "--name-only", "--cached"]).unwrap_or_default();
 
     let mut modified_files: Vec<String> = modified_raw
         .lines()
@@ -54,16 +52,14 @@ pub fn read_git_state(path: &Path) -> Result<GitState> {
     modified_files.sort();
     modified_files.dedup();
 
-    let recent_raw = run_git(path, &["log", "--oneline", "-10"])
-        .unwrap_or_default();
+    let recent_raw = run_git(path, &["log", "--oneline", "-10"]).unwrap_or_default();
     let recent_commits: Vec<String> = recent_raw
         .lines()
         .filter(|l| !l.is_empty())
         .map(String::from)
         .collect();
 
-    let repo_name = run_git(path, &["rev-parse", "--show-toplevel"])
-        .unwrap_or_default();
+    let repo_name = run_git(path, &["rev-parse", "--show-toplevel"]).unwrap_or_default();
     let repo_name = Path::new(repo_name.trim())
         .file_name()
         .map(|n| n.to_string_lossy().to_string())

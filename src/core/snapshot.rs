@@ -69,7 +69,8 @@ impl Snapshot {
     /// # Errors
     /// Returns error if serialization fails.
     pub fn to_toml(&self) -> anyhow::Result<String> {
-        toml::to_string_pretty(self).map_err(|e| anyhow::anyhow!("failed to serialize snapshot: {e}"))
+        toml::to_string_pretty(self)
+            .map_err(|e| anyhow::anyhow!("failed to serialize snapshot: {e}"))
     }
 
     /// Deserialize snapshot from TOML string.

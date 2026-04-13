@@ -39,9 +39,7 @@ pub async fn run(out: &OutputMode) -> Result<()> {
 }
 
 async fn check_latest_version() -> Result<String> {
-    let url = format!(
-        "https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
-    );
+    let url = format!("https://api.github.com/repos/{GITHUB_REPO}/releases/latest");
     let client = reqwest::Client::new();
     let resp = client
         .get(&url)

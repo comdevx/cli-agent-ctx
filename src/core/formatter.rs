@@ -67,7 +67,10 @@ pub fn to_plain(snap: &Snapshot) -> String {
 
     out.push_str(&format!("Project: {}\n", snap.project.name));
     out.push_str(&format!("Branch:  {}\n", snap.project.branch));
-    out.push_str(&format!("Commit:  {} — {}\n", snap.project.commit, snap.project.commit_message));
+    out.push_str(&format!(
+        "Commit:  {} — {}\n",
+        snap.project.commit, snap.project.commit_message
+    ));
     out.push_str(&format!("Author:  {}\n", snap.meta.author));
     if !snap.meta.message.is_empty() {
         out.push_str(&format!("Status:  {}\n", snap.meta.message));
@@ -118,7 +121,10 @@ pub fn to_claude_format(snap: &Snapshot) -> String {
     let mut out = String::new();
 
     out.push_str("# Project Context (for Claude Code)\n\n");
-    out.push_str(&format!("You are working on **{}**.\n\n", snap.project.name));
+    out.push_str(&format!(
+        "You are working on **{}**.\n\n",
+        snap.project.name
+    ));
     out.push_str(&format!(
         "- Branch: `{}`\n- Last commit: `{}` — {}\n",
         snap.project.branch, snap.project.commit, snap.project.commit_message
@@ -141,7 +147,10 @@ pub fn to_claude_format(snap: &Snapshot) -> String {
     if !snap.decisions.is_empty() {
         out.push_str("\n## Team Decisions (follow these)\n\n");
         for d in &snap.decisions {
-            out.push_str(&format!("- {} (decided by {}, {})\n", d.message, d.author, d.date));
+            out.push_str(&format!(
+                "- {} (decided by {}, {})\n",
+                d.message, d.author, d.date
+            ));
         }
     }
 

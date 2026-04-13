@@ -38,15 +38,14 @@ pub fn run(
 }
 
 fn load_snap_by_id(snaps_dir: &Path, id: &str) -> Result<Snapshot> {
-    let entries = std::fs::read_dir(snaps_dir)
-        .context("failed to read snapshots directory")?;
+    let entries = std::fs::read_dir(snaps_dir).context("failed to read snapshots directory")?;
 
     for entry in entries.flatten() {
         let name = entry.file_name();
         let name_str = name.to_string_lossy();
         if name_str.starts_with(id) || name_str.contains(id) {
-            let content = std::fs::read_to_string(entry.path())
-                .context("failed to read snapshot")?;
+            let content =
+                std::fs::read_to_string(entry.path()).context("failed to read snapshot")?;
             return Snapshot::from_toml(&content);
         }
     }
@@ -114,10 +113,7 @@ fn build_diff_text(snap1: &Snapshot, snap2: &Snapshot) -> String {
         .collect();
 
     if !new_commits.is_empty() {
-        out.push_str(&format!(
-            "\n{} new commits:\n",
-            new_commits.len()
-        ));
+        out.push_str(&format!("\n{} new commits:\n", new_commits.len()));
         for c in new_commits {
             out.push_str(&format!("  {c}\n"));
         }

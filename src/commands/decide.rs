@@ -28,12 +28,9 @@ pub fn run(
         return Err(CliError::NotInitialized.into());
     }
 
-    let config = ProjectConfig::load(&ctx_dir.join("config.toml"))
-        .unwrap_or_default();
+    let config = ProjectConfig::load(&ctx_dir.join("config.toml")).unwrap_or_default();
 
-    let author_name = author
-        .map(String::from)
-        .unwrap_or(config.defaults.author);
+    let author_name = author.map(String::from).unwrap_or(config.defaults.author);
 
     let decisions_path = ctx_dir.join(DECISIONS_FILE);
     let mut log = DecisionLog::load(&decisions_path).unwrap_or_default();
@@ -50,15 +47,11 @@ pub fn run(
         .context("failed to save decision")?;
 
     if out.json {
-        let json = serde_json::to_string_pretty(&decision)
-            .context("failed to serialize decision")?;
+        let json =
+            serde_json::to_string_pretty(&decision).context("failed to serialize decision")?;
         out.data(&json);
     } else {
-        out.success(&format!(
-            "decision #{} recorded: {}",
-            idx + 1,
-            message
-        ));
+        out.success(&format!("decision #{} recorded: {}", idx + 1, message));
         out.info(&format!("  tag: {}", decision.tag));
         out.info(&format!("  author: {}", decision.author));
     }
