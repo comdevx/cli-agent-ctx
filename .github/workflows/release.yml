@@ -16,6 +16,9 @@ jobs:
           - target: x86_64-pc-windows-msvc
             os: windows-latest
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -39,7 +42,8 @@ jobs:
           BUILD_TARGET: ${{ matrix.target }}
           TAG_NAME: ${{ github.ref_name }}
         run: |
-          Compress-Archive -Path "target/${env:BUILD_TARGET}/release/agent-ctx.exe" -DestinationPath "agent-ctx-${env:TAG_NAME}-${env:BUILD_TARGET}.zip"
+          7z a "agent-ctx-${TAG_NAME}-${BUILD_TARGET}.zip" \
+            "./target/${BUILD_TARGET}/release/agent-ctx.exe"
       - uses: softprops/action-gh-release@v1
         with:
           files: |
