@@ -67,8 +67,13 @@ import Layout from '../layouts/Layout.astro';
   <section id="install" class="py-20 px-6 bg-[#161B22]/50">
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="text-2xl font-bold mb-6">Install</h2>
-      <div class="bg-[#0D1117] border border-white/10 p-4 font-['JetBrains_Mono',monospace] text-sm text-left inline-block w-full max-w-lg">
+      <div class="bg-[#0D1117] border border-white/10 p-4 font-['JetBrains_Mono',monospace] text-sm text-left inline-block w-full max-w-lg relative group">
         <p><span class="text-[#00D9A3]">$</span> curl -fsSL https://comdevx.github.io/cli-agent-ctx/install.sh | sh</p>
+        <button
+          id="copy-btn"
+          onclick="navigator.clipboard.writeText('curl -fsSL https://comdevx.github.io/cli-agent-ctx/install.sh | sh').then(()=>{const b=document.getElementById('copy-btn');b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1500)})"
+          class="absolute top-3 right-3 bg-[#161B22] hover:bg-[#6C63FF] text-[#7D8590] hover:text-white border border-white/10 px-3 py-1 text-xs transition-colors cursor-pointer"
+        >Copy</button>
       </div>
       <p class="text-xs text-[#7D8590] mt-3">No dependencies required. Downloads a prebuilt binary for your platform.</p>
     </div>
