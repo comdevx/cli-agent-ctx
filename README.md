@@ -8,6 +8,11 @@ Persist and share development context across AI agent sessions. No more re-expla
 
 ## Install
 
+### Quick Install (recommended)
+```bash
+curl -fsSL https://comdevx.github.io/cli-agent-ctx/install.sh | sh
+```
+
 ### From source
 ```bash
 cargo install --git https://github.com/comdevx/cli-agent-ctx
