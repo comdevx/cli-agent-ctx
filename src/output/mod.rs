@@ -45,6 +45,7 @@ impl OutputMode {
     }
 
     /// Print a warning message.
+    #[allow(dead_code)] // used in error paths
     pub fn warn(&self, msg: &str) {
         if self.quiet {
             return;

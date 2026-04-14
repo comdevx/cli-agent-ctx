@@ -1,6 +1,6 @@
 [package]
 name = "agent-ctx"
-version = "0.2.1"
+version = "0.3.0"
 edition = "2021"
 description = "AI Agent Context Manager — persist and share development context across AI agent sessions"
 license = "MIT OR Apache-2.0"
@@ -26,6 +26,7 @@ directories = "6"
 chrono = { version = "0.4", features = ["serde"] }
 reqwest = { version = "0.12", features = ["json"] }
 tokio = { version = "1", features = ["full"] }
+tempfile = "3"
 
 [dev-dependencies]
 assert_cmd = "2"
