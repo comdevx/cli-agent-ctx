@@ -34,7 +34,9 @@ pub fn run(out: &OutputMode) {
         }
     } else {
         out.data(BANNER);
-        out.data(&format!("\n    v{version} · AI Agent Context Manager · by DevCool\n"));
+        out.data(&format!(
+            "\n    v{version} · AI Agent Context Manager · by DevCool\n"
+        ));
         out.data(&format!(
             "    target: {}-{}\n",
             std::env::consts::ARCH,

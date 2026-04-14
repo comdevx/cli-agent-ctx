@@ -24,6 +24,15 @@ pub async fn run(cli: Cli) -> Result<()> {
             eprintln!("{BANNER}");
             let version = env!("CARGO_PKG_VERSION");
             eprintln!("    v{version} · AI Agent Context Manager · by DevCool\n");
+
+            // Check for updates and prompt user
+            if !cli.no_update_check {
+                crate::commands::self_update::check_and_prompt(&out)
+                    .await
+                    .ok();
+                eprintln!();
+            }
+
             Cli::command().print_help()?;
             return Ok(());
         }

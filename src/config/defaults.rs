@@ -17,4 +17,4 @@ pub const DECISIONS_FILE: &str = "decisions.toml";
 pub const MAX_RECENT_COMMITS: usize = 10;
 
 /// GitHub repository for update checks.
-pub const GITHUB_REPO: &str = "devcool-dev/cli-agent-ctx";
+pub const GITHUB_REPO: &str = "comdevx/cli-agent-ctx";

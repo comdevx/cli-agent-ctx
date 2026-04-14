@@ -17,16 +17,12 @@ pub fn check_in_background() {
             if latest_clean != current && is_newer(latest_clean, &current) {
                 eprintln!();
                 eprintln!("  ┌─────────────────────────────────────────────────┐");
-                eprintln!(
-                    "  │ A new version of agent-ctx is available!         │"
-                );
+                eprintln!("  │ A new version of agent-ctx is available!         │");
                 eprintln!(
                     "  │ Current: v{:<10} Latest: v{:<17}│",
                     current, latest_clean
                 );
-                eprintln!(
-                    "  │ Run `agent-ctx self-update` to see details       │"
-                );
+                eprintln!("  │ Run `agent-ctx self-update` to see details       │");
                 eprintln!("  └─────────────────────────────────────────────────┘");
             }
         }
@@ -34,7 +30,7 @@ pub fn check_in_background() {
 }
 
 /// Compare two semver strings. Returns true if `latest` > `current`.
-fn is_newer(latest: &str, current: &str) -> bool {
+pub fn is_newer(latest: &str, current: &str) -> bool {
     let parse = |s: &str| -> (u32, u32, u32) {
         let parts: Vec<u32> = s.split('.').filter_map(|p| p.parse().ok()).collect();
         (
@@ -57,10 +53,7 @@ async fn fetch_latest_version() -> anyhow::Result<String> {
         .await?;
 
     let json: serde_json::Value = resp.json().await?;
-    let tag = json["tag_name"]
-        .as_str()
-        .unwrap_or("0.0.0")
-        .to_string();
+    let tag = json["tag_name"].as_str().unwrap_or("0.0.0").to_string();
     Ok(tag)
 }
 
