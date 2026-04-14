@@ -2,9 +2,11 @@
 ///
 /// No business logic here — only dispatch.
 use anyhow::Result;
+use clap::CommandFactory;
 use std::path::PathBuf;
 
 use crate::cli::{Cli, Command};
+use crate::commands::version::BANNER;
 use crate::output::OutputMode;
 
 /// Run the application with parsed CLI arguments.
@@ -15,7 +17,19 @@ pub async fn run(cli: Cli) -> Result<()> {
     let out = OutputMode::new(cli.no_color, cli.quiet, cli.json, cli.verbose);
     let project_dir = PathBuf::from(".");
 
-    match cli.command {
+    let command = match cli.command {
+        Some(cmd) => cmd,
+        None => {
+            // No subcommand — show banner + help
+            eprintln!("{BANNER}");
+            let version = env!("CARGO_PKG_VERSION");
+            eprintln!("    v{version} · AI Agent Context Manager · by DevCool\n");
+            Cli::command().print_help()?;
+            return Ok(());
+        }
+    };
+
+    match command {
         Command::Init => crate::commands::init::run(&project_dir, &out),
         Command::Snap {
             author,
