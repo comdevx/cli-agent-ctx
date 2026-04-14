@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Agent Ctx — AI Agent Context Manager | by DevCool" description="Persist and share development context across AI agent sessions. Never re-explain your project again. A DevCool developer tool.">
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 bg-[#0D1117]/80 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="text-lg font-bold font-['JetBrains_Mono',monospace] text-[#6C63FF]">agent-ctx</span>
+        <span class="text-xs text-[#7D8590]">by DevCool</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/comdevx/cli-agent-ctx" target="_blank" class="text-[#7D8590] hover:text-[#E6EDF3] transition-colors text-sm">GitHub</a>
+        <a href="#install" class="bg-[#6C63FF] hover:bg-[#5B54E6] text-white px-4 py-2 text-sm font-medium transition-colors">Install</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero — Demo First (L2) -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="max-w-4xl mx-auto text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+        Never re-explain your project<br />
+        <span class="text-[#6C63FF]">to an AI agent again</span>
+      </h1>
+      <p class="text-lg text-[#7D8590] max-w-2xl mx-auto">
+        Persist and share development context across Claude Code, Codex, Gemini CLI, and Cursor sessions. One command to save. One command to restore.
+      </p>
+    </div>
+
+    <!-- Terminal Demo -->
+    <div class="max-w-3xl mx-auto">
+      <div class="bg-[#161B22] border border-white/10 overflow-hidden shadow-2xl">
+        <div class="flex items-center gap-2 px-4 py-3 bg-[#0D1117] border-b border-white/5">
+          <div class="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#FEBC2E]"></div>
+          <div class="w-3 h-3 rounded-full bg-[#28C840]"></div>
+          <span class="ml-3 text-xs text-[#7D8590] font-['JetBrains_Mono',monospace]">terminal</span>
+        </div>
+        <div class="p-6 font-['JetBrains_Mono',monospace] text-sm leading-relaxed">
+          <p class="text-[#7D8590]"># End of session — save context in 1 command</p>
+          <p><span class="text-[#00D9A3]">$</span> agent-ctx snap -m "finished auth endpoint, starting tests"</p>
+          <p class="text-[#00D9A3]">&#10003; snapshot saved: 20260414-183000-som</p>
+          <p class="text-[#7D8590]">  branch: feat/add-auth</p>
+          <p class="text-[#7D8590]">  commit: abc1234</p>
+          <p class="text-[#7D8590]">  modified files: 3</p>
+          <p class="text-[#7D8590]">  decisions: 2</p>
+          <p class="mt-4 text-[#7D8590]"># Next session — restore context instantly</p>
+          <p><span class="text-[#00D9A3]">$</span> agent-ctx load --for claude</p>
+          <p class="mt-2 text-[#E6EDF3]"># Project Context (for Claude Code)</p>
+          <p class="text-[#E6EDF3]">You are working on <span class="text-[#6C63FF] font-bold">my-api</span>.</p>
+          <p class="text-[#7D8590]">- Branch: feat/add-auth</p>
+          <p class="text-[#7D8590]">- Last commit: abc1234 — feat: add JWT token generation</p>
+          <p class="mt-2 text-[#E6EDF3]">## Current Task</p>
+          <p class="text-[#7D8590]">Task-4: implement login endpoint (60% done)</p>
+          <p class="mt-2 text-[#E6EDF3]">## Team Decisions</p>
+          <p class="text-[#7D8590]">- JWT over session-based auth (decided by som)</p>
+          <p class="text-[#7D8590]">- PostgreSQL over MongoDB (decided by nid)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section id="install" class="py-20 px-6 bg-[#161B22]/50">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl font-bold mb-6">Install</h2>
+      <div class="bg-[#0D1117] border border-white/10 p-4 font-['JetBrains_Mono',monospace] text-sm text-left inline-block w-full max-w-lg">
+        <p class="text-[#7D8590]"># From source</p>
+        <p><span class="text-[#00D9A3]">$</span> cargo install --git https://github.com/comdevx/cli-agent-ctx</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-2xl font-bold text-center mb-12">What it does</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <!-- Feature 1 -->
+        <div class="flex gap-4">
+          <div class="bg-[#161B22] border border-white/10 p-5 flex-1">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="w-8 h-8 bg-[#6C63FF]/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-[#6C63FF] text-lg">&#128248;</span>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">Snapshot context</h3>
+                <p class="text-sm text-[#7D8590]">One command captures git state, recent commits, modified files, decisions, and notes. Everything an AI agent needs to understand your project.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="flex gap-4">
+          <div class="bg-[#161B22] border border-white/10 p-5 flex-1">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="w-8 h-8 bg-[#00D9A3]/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-[#00D9A3] text-lg">&#9889;</span>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">Instant restore</h3>
+                <p class="text-sm text-[#7D8590]">Load context in the format your agent understands. Supports Claude Code, Codex, Gemini CLI, and Cursor with agent-specific formatting.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="flex gap-4">
+          <div class="bg-[#161B22] border border-white/10 p-5 flex-1">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="w-8 h-8 bg-[#FF6B6B]/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-[#FF6B6B] text-lg">&#128101;</span>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">Team handoffs</h3>
+                <p class="text-sm text-[#7D8590]">Share context via git. Developer A saves a snapshot, pushes, Developer B loads it. No cloud backend needed — git is the transport layer.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="flex gap-4">
+          <div class="bg-[#161B22] border border-white/10 p-5 flex-1">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="w-8 h-8 bg-[#6C63FF]/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-[#6C63FF] text-lg">&#128218;</span>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">Decision log</h3>
+                <p class="text-sm text-[#7D8590]">Record architectural decisions with tags and authors. Every future agent session sees the team's decisions — no more flip-flopping.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="flex gap-4">
+          <div class="bg-[#161B22] border border-white/10 p-5 flex-1">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="w-8 h-8 bg-[#00D9A3]/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-[#00D9A3] text-lg">&#128269;</span>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">Diff snapshots</h3>
+                <p class="text-sm text-[#7D8590]">Compare what changed between two sessions. See new commits, new decisions, file changes — understand the evolution at a glance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="flex gap-4">
+          <div class="bg-[#161B22] border border-white/10 p-5 flex-1">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="w-8 h-8 bg-[#FF6B6B]/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-[#FF6B6B] text-lg">&#9881;</span>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1">Zero config needed</h3>
+                <p class="text-sm text-[#7D8590]">Run <code class="font-['JetBrains_Mono',monospace] text-xs bg-[#0D1117] px-1 py-0.5">agent-ctx init</code> and start snapping. Works with any git project. No accounts, no cloud, no setup wizard.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub -->
+  <section class="py-16 px-6 bg-[#161B22]/50 text-center">
+    <a href="https://github.com/comdevx/cli-agent-ctx" target="_blank" class="inline-flex items-center gap-3 bg-[#0D1117] border border-white/10 px-6 py-3 hover:border-[#6C63FF]/50 transition-colors">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      <span class="font-medium">View on GitHub</span>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 px-6 border-t border-white/5 text-center text-sm text-[#7D8590]">
+    <p>&copy; 2026 DevCool &middot; devcool.xyz &middot; MIT License</p>
+  </footer>
+
+</Layout>
